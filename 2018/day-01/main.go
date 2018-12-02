@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
+	"fmt"
+	"log"
 	"os"
 	"strconv"
-
-	"github.com/sirupsen/logrus"
 )
 
 const inputFile = "input"
@@ -13,7 +13,7 @@ const inputFile = "input"
 func main() {
 	c, err := newCalibrator(inputFile)
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 	c.calibrate()
 }
@@ -38,7 +38,7 @@ func newCalibrator(path string) (*calibrator, error) {
 		rawData = append(rawData, scanner.Text())
 		val, err := strconv.ParseInt(scanner.Text(), 10, 64)
 		if err != nil {
-			logrus.Error(err)
+			return nil, err
 		}
 		processedData = append(processedData, val)
 	}
@@ -54,11 +54,11 @@ func (c *calibrator) calibrate() {
 			currentFrequency := frequency
 			frequency += change
 			c.frequencyHistory[frequency]++
-			logrus.Infof("Current frequency %v, change of %v; resulting frequency %v", currentFrequency, change, frequency)
+			fmt.Printf("Current frequency %v, change of %v; resulting frequency %v\n", currentFrequency, change, frequency)
 			if c.frequencyHistory[frequency] == 2 {
 				break
 			}
 		}
 	}
-	logrus.Infof("First duplicate frequency is %v", frequency)
+	fmt.Printf("First duplicate frequency is %v\n", frequency)
 }
