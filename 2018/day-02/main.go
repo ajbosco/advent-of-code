@@ -34,6 +34,7 @@ func readInput(path string) ([]string, error) {
 	return data, err
 }
 
+// Puzzle 1
 func checkSum(data []string) {
 	var twoCount int
 	var threeCount int
@@ -52,7 +53,6 @@ func checkSum(data []string) {
 	fmt.Printf("The checksum is %v\n", checkSum)
 }
 
-// Puzzle 1
 func countCharacters(characters []string) map[string]int {
 	characterMap := make(map[string]int)
 	for _, c := range characters {
